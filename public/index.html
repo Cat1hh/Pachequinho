@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pachequinho Bot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    button {
+      padding: 12px 22px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #4CAF50;
+      color: white;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 280px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Enviar mensagem do Pachequinho</h2>
+
+  <input type="email" id="email" placeholder="E-mail do professor">
+  <button onclick="enviarEmail()">Enviar</button>
+
+  <p id="status"></p>
+
+  <script>
+    async function enviarEmail() {
+      const email = document.getElementById("email").value;
+      const status = document.getElementById("status");
+
+      if (!email) {
+        status.innerText = "Digite um e-mail primeiro!";
+        status.style.color = "red";
+        return;
+      }
+
+      status.innerText = "Enviando...";
+      status.style.color = "black";
+
+      const resposta = await fetch("/enviar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await resposta.json();
+
+      if (data.ok) {
+        status.innerText = "E-mail enviado com sucesso!";
+        status.style.color = "green";
+      } else {
+        status.innerText = "Erro ao enviar!";
+        status.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>

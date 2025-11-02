@@ -1,0 +1,16 @@
+{
+  "name": "pachequinho-bot",
+  "version": "1.0.0",
+  "description": "Bot Pachequinho que envia e-mails para professores",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.1"
+  }
+}
